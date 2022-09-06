@@ -1,5 +1,5 @@
 # WebMappVenezia
-Applicazione per rappresentare POI, servizi e informazioni geolocalizzate del territorio da rappresentare.
+Applicazione per rappresentare POI, servizi e informazioni geolocalizzate del territorio. L'applicazione è stata sviluppata per la Città metropolitana di Venezia e per gli enti che ne fanno parte, per valorizzare i servizi e le specificità dei territori.
 
 Requisiti:
 - Web Server con servizio di hosting (consigliato Ubuntu e Apache);
