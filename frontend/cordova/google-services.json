@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "995394556513",
+    "firebase_url": "https://webpapermapp.firebaseio.com",
+    "project_id": "webpapermapp",
+    "storage_bucket": "webpapermapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:995394556513:android:29d55ff294c032c5",
+        "android_client_info": {
+          "package_name": "it.cittametropolitanavenezia.webpapermapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "995394556513-v8jnd5skprjg3rrhqllhianq63jb5uug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAR8zk76NK8X_a1Cjdn1mDt6r1BCjabZ8M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

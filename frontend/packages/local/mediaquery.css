@@ -1,0 +1,35 @@
+
+
+
+.greenIcon {
+	color: #98FB98 !important;
+}
+
+
+.x-button .x-badge {
+	left: 8px !important;
+	top: 32px !important;
+	background-color: white !important;
+	width: 30px !important;
+    height: 18px !important;
+	line-height: 0.7em !important;
+	min-width: 0px !important;
+}
+
+.arrow-up {
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  
+  border-bottom: 5px solid black;
+}
+
+.limitationLegendPanel{
+	top: 70px;
+	left: 0px; 
+}
+.limitationLegendPanel-ios{
+	top: 95px;
+	left: 0px; 
+}

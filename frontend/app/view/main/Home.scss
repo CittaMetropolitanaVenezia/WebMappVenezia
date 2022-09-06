@@ -1,0 +1,123 @@
+.homebutton{
+color: grey !important;
+icon-color: grey !important;
+font-size: 14px !important;
+}
+.greyIcon{
+color: grey !important;
+}
+.blackIcon{
+color: black !important;
+}
+.blueIcon{
+color:  #2196F3 !important;
+}
+.whiteBackground{
+	background-color: white !important;
+}
+.tourism-icon{
+    background-image: url(images/tourism.png) !important;
+    background-size: 38px !important;
+    padding-left: 38px;
+    padding-right: 38px;
+    padding-bottom: 38px;
+}
+.society-icon{
+    background-image: url(images/society.png) !important;
+    background-size: 38px !important;
+    padding-left: 38px;
+    padding-right: 38px;
+    padding-bottom: 38px;
+}
+.security-icon{
+    background-image: url(images/security.png) !important;
+    background-size: 38px !important;
+    padding-left: 38px;
+    padding-right: 38px;
+    padding-bottom: 38px;
+}
+.health-icon{
+    background-image: url(images/health.png) !important;
+    background-size: 38px !important;
+    padding-left: 38px;
+    padding-right: 38px;
+    padding-bottom: 38px;
+}
+.mobility-icon{
+    background-image: url(images/mobility.png) !important;
+    background-size: 38px !important;
+    padding-left: 38px;
+    padding-right: 38px;
+    padding-bottom: 38px;
+}
+.traffic-icon{
+    background-image: url(images/carstop.png) !important;
+    background-size: 38px !important;
+    padding-left: 38px;
+    padding-right: 38px;
+    padding-bottom: 38px;
+}
+.bicycle-icon{
+    background-image: url(images/bicycle.png) !important;
+    background-size: 38px !important;
+    padding-left: 38px;
+    padding-right: 38px;
+    padding-bottom: 38px;
+}
+
+.object-localization-white-icon{
+    background-image: url(images/localization_white.png);
+    background-size: 25px !important;
+    padding-left: 25px;
+    padding-right: 25px; 
+    padding-bottom: 25px;
+	height: 25px !important;
+	width: 25px !important;
+}
+@media screen and (max-width: 300px) {
+	.homebutton{
+		font-size: 10px !important;
+	}
+	.tourism-icon{
+		background-size: 18px !important;
+		padding-left: 18px !important;
+		padding-right: 18px !important;
+		padding-bottom: 18px !important;
+	}
+	.society-icon{
+		 background-size: 18px !important;
+		padding-left: 18px !important;
+		padding-right: 18px !important;
+		padding-bottom: 18px !important;
+	}
+	.security-icon{
+		 background-size: 18px !important;
+		padding-left: 18px !important;
+		padding-right: 18px !important;
+		padding-bottom: 18px !important;
+	}
+	.health-icon{
+		 background-size: 18px !important;
+		padding-left: 18px !important;
+		padding-right: 18px !important;
+		padding-bottom: 18px !important;
+	}
+	.mobility-icon{
+		background-size: 18px !important;
+		padding-left: 18px !important;
+		padding-right: 18px !important;
+		padding-bottom: 18px !important;
+	}
+	.traffic-icon{
+		 background-size: 18px !important;
+		padding-left: 18px !important;
+		padding-right: 18px !important;
+		padding-bottom: 18px !important;
+	}
+	.bicycle-icon{
+		background-size: 18px !important;
+		padding-left: 18px !important;
+		padding-right: 18px !important;
+		padding-bottom: 18px !important;
+	}
+}

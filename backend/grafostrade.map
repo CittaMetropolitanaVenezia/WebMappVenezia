@@ -1,0 +1,2717 @@
+MAP
+ NAME   "grafostrade"
+ STATUS   on
+
+ SIZE   640 442
+ MAXSIZE   4096
+# EXTENT   1724165.3174 5017908.9564 1795159.1241 5056071.0392   EPSG3003
+ EXTENT	   10.406799 44.814967 14.111938 46.080852
+ UNITS   METERS
+
+ RESOLUTION   72
+
+ SYMBOLSET   "/PERCORSO_APP_BACKEND/limitedroads.sym"
+ FONTSET   "/PERCORSO_APP_BACKEND/fonts/fonts.txt"
+ IMAGECOLOR   255 255 255
+
+ PROJECTION
+#3003		"proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs" 
+			"proj=longlat" "datum=WGS84" "no_defs" 
+ END    
+
+ WEB
+  IMAGEPATH   "/tmp/"
+  IMAGEURL   "http://172.16.100.115/tmp/"
+
+  METADATA
+   WMS_TITLE   "webmap_wms"
+   WMS_SRS   "epsg:3003 epsg:4326 epsg:3857"
+   WMS_ONLINERESOURCE   "https://URLSERVER/cgi-bin/mapserv?map=/PERCORSO_APP_BACKEND/grafostrade.map"
+   WMS_FEATURE_INFO_MIME_TYPE   "text/html"
+   WMS_ABSTRACT   ""
+   WMS_INCLUDE_ITEMS "all"
+  END    
+ END    
+
+ OUTPUTFORMAT
+  NAME   "png"
+  DRIVER   "AGG/PNG"
+  MIMETYPE   "image/png"
+  IMAGEMODE   "RGBA"
+  EXTENSION   "png"
+  FORMATOPTION   "INTERLACE=ON"
+  TRANSPARENT  on
+ END
+#---------- start layer aree_limitate---------
+LAYER
+  NAME   "aree_limitate"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from v_limtraf_livallerta USING UNIQUE codistat"
+  CLASSITEM   "livallerta"
+  CLASS
+  EXPRESSION ( [livallerta] = 2)
+   NAME  "allerta_2"
+   STYLE
+    OUTLINECOLOR  "#E5231A"
+	OPACITY 60
+	COLOR "#EA484E"
+   END       
+  END
+  CLASS
+  EXPRESSION ( [livallerta] = 1)
+   NAME  "allerta_1"
+   STYLE
+    OUTLINECOLOR  "#ffa500"
+	OPACITY 60
+	COLOR "#ffa500"
+   END       
+  END  
+  CLASS
+  EXPRESSION ( [livallerta] = 0)
+   NAME  "allerta_0"
+   STYLE
+    OUTLINECOLOR  "#09E602"
+	OPACITY 60
+	COLOR "#66FF66"
+   END       
+  END    
+
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "aree_limitate"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "aree_limitate"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END    
+#---------- start layer aree_limitate_domani ---------------------
+LAYER
+  NAME   "aree_limitate_domani"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from v_limtraf_livallerta USING UNIQUE codistat"
+  CLASSITEM   "livallerta_domani"
+  CLASS
+  EXPRESSION ( [livallerta_domani] = 2)
+   NAME  "allerta_2"
+   STYLE
+    OUTLINECOLOR  "#FF0000"
+	OPACITY 40
+	COLOR "#FF0000"
+   END       
+  END
+  CLASS
+  EXPRESSION ( [livallerta_domani] = 1)
+   NAME  "allerta_1"
+   STYLE
+    OUTLINECOLOR  "#ffa500"
+	OPACITY 40
+	COLOR "#ffa500"
+   END       
+  END  
+  CLASS
+  EXPRESSION ( [livallerta_domani] = 0)
+   NAME  "allerta_0"
+   STYLE
+    OUTLINECOLOR  "#7FFF00"
+	OPACITY 40
+	COLOR "#7FFF00"
+   END       
+  END    
+
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "aree_limitate_domani"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "aree_limitate_domani"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END 
+#---------- start layer grafo_stradale ----------
+
+ LAYER
+  NAME   "grafo_stradale"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  LINE
+  STATUS OFF
+  DATA   "geom from limtraf_grafostrade_cmve USING UNIQUE fid"
+  CLASSITEM   "tipo"
+  LABELITEM "denom"
+  LABELMAXSCALE 20000
+  
+  CLASS
+   MAXSCALEDENOM 130000
+   NAME  "Autostrade"
+	EXPRESSION ('[tipo]' = 'Autostrada')
+   STYLE
+    COLOR  0 0 0
+    MAXWIDTH  18
+	WIDTH  14
+	MINWIDTH  8
+    #SYMBOL  "linea_continua"
+   END    
+   STYLE
+    COLOR  "#B8B8B8"
+    WIDTH  8
+    #SYMBOL  "linea_continua"
+   END    
+   LABEL
+    ANGLE  follow
+    COLOR  0 0 0
+    FONT  "arialbd"
+    MAXSIZE  7
+    OUTLINECOLOR  255 255 255
+    POSITION  cc
+    SIZE  5
+    TYPE  truetype
+   END    
+  END
+  
+  CLASS
+   MAXSCALEDENOM 130000
+   NAME  "Strada Statale"
+	EXPRESSION ('[tipo]' = 'S.S. - Strada Statale')
+   STYLE
+    COLOR  0 0 0
+    MAXWIDTH  16
+	WIDTH  12
+	MINWIDTH  6
+    #SYMBOL  "linea_continua"
+   END    
+   STYLE
+    COLOR  "#B8B8B8"
+    WIDTH  6
+    #SYMBOL  "linea_continua"
+   END    
+   LABEL
+    ANGLE  follow
+    COLOR  0 0 0
+    FONT  "arialbd"
+    MAXSIZE  7
+    OUTLINECOLOR  255 255 255
+    POSITION  cc
+    SIZE  5
+    TYPE  truetype
+   END    
+  END
+  
+   CLASS
+   MAXSCALEDENOM 70000
+   NAME  "S.P. - Strada Provinciale"
+	EXPRESSION ('[tipo]' = 'S.P. - Strada Provinciale' OR '[tipo]' = 'S.R. - Strada Regionale')
+   STYLE
+    COLOR  0 0 0
+    WIDTH  10
+    #SYMBOL  "linea_continua"
+   END    
+   STYLE
+    COLOR  "#D3D3D3"
+    WIDTH  5
+    #SYMBOL  "linea_continua"
+   END    
+   LABEL
+    ANGLE  follow
+    COLOR  0 0 0
+    FONT  "arialbd"
+    MAXSIZE  7
+    OUTLINECOLOR  255 255 255
+    POSITION  cc
+    SIZE  5
+    TYPE  truetype
+   END    
+  END 
+  CLASS
+  MAXSCALEDENOM 40000
+   NAME  "S.C. - Strada Comunale"
+	EXPRESSION ('[tipo]' = 'S.C. - Strada Comunale' OR '[tipo]' = 'altro')
+   STYLE
+    COLOR  0 0 0
+    WIDTH  8
+    #SYMBOL  "linea_continua"
+   END    
+   STYLE
+    COLOR  "#FFFFFF"
+    WIDTH  4
+    #SYMBOL  "linea_continua"
+   END    
+   LABEL
+    ANGLE  follow
+    COLOR  0 0 0
+    FONT  "arialbd"
+    MAXSIZE  7
+    OUTLINECOLOR  255 255 255
+    POSITION  cc
+    SIZE  5
+    TYPE  truetype
+   END    
+  END 
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "grafo_stradale"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "grafo_stradale"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END
+#---------- start layer chioggia_limitato----------
+
+ LAYER
+  NAME   "27008_t"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  LINE
+  STATUS OFF
+  DATA   "geom from limtraf_grafostrade_con_limitazione USING UNIQUE fid"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   MAXSCALEDENOM 130000
+   NAME  "Autostrade"
+   EXPRESSION ('[tipo]' = 'S.S. - Strada Statale' AND '[codistat]' =  '27008' )  
+   STYLE
+    COLOR  "#FF0000"
+	WIDTH 1
+    #SYMBOL  "linea_continua"
+   END      
+  END
+  
+   CLASS
+   MAXSCALEDENOM 70000
+   NAME  "S.P. - Strada Provinciale"
+	EXPRESSION ('[tipo]' = 'S.P. - Strada Provinciale' AND '[codistat]' =  '27008' )  
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END
+  
+  CLASS
+  MAXSCALEDENOM 40000
+   NAME  "S.C. - Strada Comunale"
+	EXPRESSION (('[tipo]' = 'S.C. - Strada Comunale' OR '[tipo]' = 'altro') AND '[codistat]' =  '27008' )   
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END 
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27008_t"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27008_t"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END    
+#---------- start layer venezia_limitato----------
+
+ LAYER
+  NAME   "27042_t"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  LINE
+  STATUS OFF
+  DATA   "geom from limtraf_grafostrade_con_limitazione USING UNIQUE fid"
+  CLASSITEM   "codistat"
+
+  CLASS
+   MAXSCALEDENOM 130000
+   NAME  "Autostrade"
+   EXPRESSION ('[tipo]' = 'S.S. - Strada Statale' AND '[codistat]' =  '27042' )  
+   STYLE
+    COLOR  "#FF0000"
+	WIDTH 1
+    #SYMBOL  "linea_continua"
+   END      
+  END
+  
+   CLASS
+   MAXSCALEDENOM 70000
+   NAME  "S.P. - Strada Provinciale"
+	EXPRESSION ('[tipo]' = 'S.P. - Strada Provinciale' AND '[codistat]' =  '27042' )  
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END
+  
+  CLASS
+  MAXSCALEDENOM 40000
+   NAME  "S.C. - Strada Comunale"
+    EXPRESSION (('[tipo]' = 'S.C. - Strada Comunale' OR '[tipo]' = 'altro') AND '[codistat]' =  '27042' )  
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END   
+
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27042_t"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27042_t"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END    
+#---------- start layer scorze_limitato----------
+
+ LAYER
+  NAME   "27037_t"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  LINE
+  STATUS OFF
+  DATA   "geom from limtraf_grafostrade_con_limitazione USING UNIQUE fid"
+  CLASSITEM   "codistat"
+
+  CLASS
+   MAXSCALEDENOM 130000
+   NAME  "Autostrade"
+   EXPRESSION ('[tipo]' = 'S.S. - Strada Statale' AND '[codistat]' =  '27037' )  
+   STYLE
+    COLOR  "#FF0000"
+	WIDTH 1
+    #SYMBOL  "linea_continua"
+   END      
+  END
+  
+   CLASS
+   MAXSCALEDENOM 70000
+   NAME  "S.P. - Strada Provinciale"
+	EXPRESSION ('[tipo]' = 'S.P. - Strada Provinciale' AND '[codistat]' =  '27037' )  
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END
+  
+  CLASS
+  MAXSCALEDENOM 40000
+   NAME  "S.C. - Strada Comunale"
+	EXPRESSION (('[tipo]' = 'S.C. - Strada Comunale' OR '[tipo]' = 'altro') AND '[codistat]' =  '27037' )   
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END     
+
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27037_t"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27037_t"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END    
+#---------- start layer mira_limitato----------
+
+ LAYER
+  NAME   "27023_t"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  LINE
+  STATUS OFF
+  DATA   "geom from limtraf_grafostrade_con_limitazione USING UNIQUE fid"
+  CLASSITEM   "codistat"
+
+  CLASS
+   MAXSCALEDENOM 130000
+   NAME  "Autostrade"
+   EXPRESSION ('[tipo]' = 'S.S. - Strada Statale' AND '[codistat]' =  '27023' )  
+   STYLE
+    COLOR  "#FF0000"
+	WIDTH 1
+    #SYMBOL  "linea_continua"
+   END      
+  END
+  
+   CLASS
+   MAXSCALEDENOM 70000
+   NAME  "S.P. - Strada Provinciale"
+	EXPRESSION ('[tipo]' = 'S.P. - Strada Provinciale' AND '[codistat]' =  '27023' )  
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END
+  
+  CLASS
+  MAXSCALEDENOM 40000
+   NAME  "S.C. - Strada Comunale"
+	EXPRESSION (('[tipo]' = 'S.C. - Strada Comunale' OR '[tipo]' = 'altro') AND '[codistat]' =  '27023' )   
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END      
+
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27023_t"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27023_t"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END    
+#---------- start layer spinea_limitato----------
+
+ LAYER
+  NAME   "27038_t"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  LINE
+  STATUS OFF
+  DATA   "geom from limtraf_grafostrade_con_limitazione USING UNIQUE fid"
+  CLASSITEM   "codistat"
+
+  CLASS
+   MAXSCALEDENOM 130000
+   NAME  "Autostrade"
+   EXPRESSION ('[tipo]' = 'S.S. - Strada Statale' AND '[codistat]' =  '27038' )  
+   STYLE
+    COLOR  "#FF0000"
+	WIDTH 1
+    #SYMBOL  "linea_continua"
+   END      
+  END
+  
+   CLASS
+   MAXSCALEDENOM 70000
+   NAME  "S.P. - Strada Provinciale"
+	EXPRESSION ('[tipo]' = 'S.P. - Strada Provinciale' AND '[codistat]' =  '27038' )  
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END
+  
+  CLASS
+  MAXSCALEDENOM 40000
+   NAME  "S.C. - Strada Comunale"
+	EXPRESSION (('[tipo]' = 'S.C. - Strada Comunale' OR '[tipo]' = 'altro') AND '[codistat]' =  '27038' )   
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END     
+
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27038_t"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27038_t"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END    
+#---------- start layer sandona_limitato----------
+
+ LAYER
+  NAME   "27033_t"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  LINE
+  STATUS OFF
+  DATA   "geom from limtraf_grafostrade_con_limitazione USING UNIQUE fid"
+  CLASSITEM   "codistat"
+
+  CLASS
+   MAXSCALEDENOM 130000
+   NAME  "Autostrade"
+   EXPRESSION ('[tipo]' = 'S.S. - Strada Statale' AND '[codistat]' =  '27033' )  
+   STYLE
+    COLOR  "#FF0000"
+	WIDTH 1
+    #SYMBOL  "linea_continua"
+   END      
+  END
+  
+   CLASS
+   MAXSCALEDENOM 70000
+   NAME  "S.P. - Strada Provinciale"
+	EXPRESSION ('[tipo]' = 'S.P. - Strada Provinciale' AND '[codistat]' =  '27033' )  
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END
+  
+  CLASS
+  MAXSCALEDENOM 40000
+   NAME  "S.C. - Strada Comunale"
+	EXPRESSION (('[tipo]' = 'S.C. - Strada Comunale' OR '[tipo]' = 'altro') AND '[codistat]' =  '27033' )   
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END    
+
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27033_t"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27033_t"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END    
+#---------- start layer martellago_limitato----------
+
+ LAYER
+  NAME   "27021_t"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  LINE
+  STATUS OFF
+  DATA   "geom from limtraf_grafostrade_con_limitazione USING UNIQUE fid"
+  CLASSITEM   "codistat"
+
+   CLASS
+   MAXSCALEDENOM 130000
+   NAME  "Autostrade"
+   EXPRESSION ('[tipo]' = 'S.S. - Strada Statale' AND '[codistat]' =  '27021' )  
+   STYLE
+    COLOR  "#FF0000"
+	WIDTH 1
+    #SYMBOL  "linea_continua"
+   END      
+  END
+  
+   CLASS
+   MAXSCALEDENOM 70000
+   NAME  "S.P. - Strada Provinciale"
+	EXPRESSION ('[tipo]' = 'S.P. - Strada Provinciale' AND '[codistat]' =  '27021' )  
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END
+  
+  CLASS
+  MAXSCALEDENOM 40000
+   NAME  "S.C. - Strada Comunale"
+	EXPRESSION (('[tipo]' = 'S.C. - Strada Comunale' OR '[tipo]' = 'altro') AND '[codistat]' =  '27021' )   
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END     
+
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27021_t"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27021_t"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END    
+#---------- start layer quarto_limitato----------
+
+ LAYER
+  NAME   "27031_t"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  LINE
+  STATUS OFF
+  DATA   "geom from limtraf_grafostrade_con_limitazione USING UNIQUE fid"
+  CLASSITEM   "codistat"
+
+  CLASS
+   MAXSCALEDENOM 130000
+   NAME  "Autostrade"
+   EXPRESSION ('[tipo]' = 'S.S. - Strada Statale' AND '[codistat]' =  '27031' )  
+   STYLE
+    COLOR  "#FF0000"
+	WIDTH 1
+    #SYMBOL  "linea_continua"
+   END      
+  END
+  
+   CLASS
+   MAXSCALEDENOM 70000
+   NAME  "S.P. - Strada Provinciale"
+	EXPRESSION ('[tipo]' = 'S.P. - Strada Provinciale' AND '[codistat]' =  '27031' )  
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END
+  
+  CLASS
+  MAXSCALEDENOM 40000
+   NAME  "S.C. - Strada Comunale"
+	EXPRESSION (('[tipo]' = 'S.C. - Strada Comunale' OR '[tipo]' = 'altro') AND '[codistat]' =  '27031' )   
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END     
+
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27031_t"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27031_t"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END    
+#---------- start layer marcon_limitato----------
+
+ LAYER
+  NAME   "27020_t"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  LINE
+  STATUS OFF
+  DATA   "geom from limtraf_grafostrade_con_limitazione USING UNIQUE fid"
+  CLASSITEM   "codistat"
+
+  CLASS
+   MAXSCALEDENOM 130000
+   NAME  "Autostrade"
+   EXPRESSION ('[tipo]' = 'S.S. - Strada Statale' AND '[codistat]' =  '27020' )  
+   STYLE
+    COLOR  "#FF0000"
+	WIDTH 1
+    #SYMBOL  "linea_continua"
+   END      
+  END
+  
+   CLASS
+   MAXSCALEDENOM 70000
+   NAME  "S.P. - Strada Provinciale"
+	EXPRESSION ('[tipo]' = 'S.P. - Strada Provinciale' AND '[codistat]' =  '27020' )  
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END
+  
+  CLASS
+  MAXSCALEDENOM 40000
+   NAME  "S.C. - Strada Comunale"
+	EXPRESSION (('[tipo]' = 'S.C. - Strada Comunale' OR '[tipo]' = 'altro') AND '[codistat]' =  '27020' )   
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END    
+
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27020_t"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27020_t"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END     
+#---------- start layer camponogara_limitato----------
+
+ LAYER
+  NAME   "27004_t"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  LINE
+  STATUS OFF
+  DATA   "geom from limtraf_grafostrade_con_limitazione USING UNIQUE fid"
+  CLASSITEM   "codistat"
+
+  CLASS
+   MAXSCALEDENOM 130000
+   NAME  "Autostrade"
+   EXPRESSION ('[tipo]' = 'S.S. - Strada Statale' AND '[codistat]' =  '27004' )  
+   STYLE
+    COLOR  "#FF0000"
+	WIDTH 1
+    #SYMBOL  "linea_continua"
+   END      
+  END
+  
+   CLASS
+   MAXSCALEDENOM 70000
+   NAME  "S.P. - Strada Provinciale"
+	EXPRESSION ('[tipo]' = 'S.P. - Strada Provinciale' AND '[codistat]' =  '27004' )  
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END
+  
+  CLASS
+  MAXSCALEDENOM 40000
+   NAME  "S.C. - Strada Comunale"
+	EXPRESSION (('[tipo]' = 'S.C. - Strada Comunale' OR '[tipo]' = 'altro') AND '[codistat]' =  '27004' )   
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END    
+
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27004_t"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27004_t"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END     
+ #---------- start layer campolongomaggiore_limitato----------
+
+ LAYER
+  NAME   "27003_t"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  LINE
+  STATUS OFF
+  DATA   "geom from limtraf_grafostrade_con_limitazione USING UNIQUE fid"
+  CLASSITEM   "codistat"
+
+  CLASS
+   MAXSCALEDENOM 130000
+   NAME  "Autostrade"
+   EXPRESSION ('[tipo]' = 'S.S. - Strada Statale' AND '[codistat]' =  '27003' )  
+   STYLE
+    COLOR  "#FF0000"
+	WIDTH 1
+    #SYMBOL  "linea_continua"
+   END      
+  END
+  
+   CLASS
+   MAXSCALEDENOM 70000
+   NAME  "S.P. - Strada Provinciale"
+	EXPRESSION ('[tipo]' = 'S.P. - Strada Provinciale' AND '[codistat]' =  '27003' )  
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END
+  
+  CLASS
+  MAXSCALEDENOM 40000
+   NAME  "S.C. - Strada Comunale"
+	EXPRESSION (('[tipo]' = 'S.C. - Strada Comunale' OR '[tipo]' = 'altro') AND '[codistat]' =  '27003' )   
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END    
+
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27003_t"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27003_t"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END 
+
+#---------- start layer jesolo_limitato----------
+
+ LAYER
+  NAME   "27019_t"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  LINE
+  STATUS OFF
+  DATA   "geom from limtraf_grafostrade_con_limitazione USING UNIQUE fid"
+  CLASSITEM   "codistat"
+
+  CLASS
+   MAXSCALEDENOM 130000
+   NAME  "Autostrade"
+   EXPRESSION ('[tipo]' = 'S.S. - Strada Statale' AND '[codistat]' =  '27019' )  
+   STYLE
+    COLOR  "#FF0000"
+	WIDTH 1
+    #SYMBOL  "linea_continua"
+   END      
+  END
+  
+   CLASS
+   MAXSCALEDENOM 70000
+   NAME  "S.P. - Strada Provinciale"
+	EXPRESSION ('[tipo]' = 'S.P. - Strada Provinciale' AND '[codistat]' =  '27019' )  
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END
+  
+  CLASS
+  MAXSCALEDENOM 40000
+   NAME  "S.C. - Strada Comunale"
+	EXPRESSION (('[tipo]' = 'S.C. - Strada Comunale' OR '[tipo]' = 'altro') AND '[codistat]' =  '27019' )   
+   STYLE
+    COLOR  "#FF0000"
+    WIDTH  1
+    #SYMBOL  "linea_continua"
+   END       
+  END    
+
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27019_t"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27019_t"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END 
+#---------------------------------------------------------- LAYER DOMENICHE ECOLOGICHE
+
+#---------- start layer annone_eco----------
+
+ LAYER
+  NAME   "27001_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27001'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27001_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27001_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END 
+
+#---------- start layer campagna_eco----------
+
+ LAYER
+  NAME   "27002_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27002'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27002_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27002_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END
+
+#---------- start layer Campolongo Maggiore----------
+
+ LAYER
+  NAME   "27003_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27003'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27003_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27003_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#---------- start layer Camponogara----------
+
+ LAYER
+  NAME   "27004_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27004'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27004_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27004_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+ 
+ #---------- start layer ----------
+
+ LAYER
+  NAME   "27005_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27005'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27005_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27005_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+ 
+ #---------- start layer eco----------
+
+ LAYER
+  NAME   "27006_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27006'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27006_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27006_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27007_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27007'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27007_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27007_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+#---------- PROVA SU CHIOGGIA RETINATURA E COLORE LEO ----------
+ LAYER
+  NAME   "27008_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27008'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#3366ff"
+	MINSIZE 15	
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27008_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27008_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27009_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27009'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27009_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27009_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27010_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27010'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27010_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27010_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27011_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27011'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27011_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27011_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27012_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27012'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27012_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27012_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27013_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27013'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27013_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27013_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27014_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27014'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27014_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27014_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27015_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27015'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27015_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27015_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27016_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27016'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27016_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27016_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27017_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27017'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27017_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27017_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27018_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27018'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27018_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27018_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27019_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27019'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27019_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27019_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27020_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27020'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27020_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27020_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27021_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27021'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27021_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27021_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27022_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27022'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27022_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27022_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27023_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27023'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27023_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27023_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27024_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27024'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27024_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27024_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27025_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27025'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27025_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27025_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27026_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27026'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27026_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27026_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27027_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27027'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27027_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27027_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27028_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27028'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27028_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27028_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27029_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27029'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27029_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27029_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27030_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27030'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27030_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27030_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27031_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27031'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27031_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27031_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27032_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27032'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27032_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27032_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27033_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27033'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27033_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27033_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27034_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27034'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27034_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27034_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27035_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27035'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27035_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27035_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27036_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27036'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27036_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27036_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27037_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27037'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27037_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27037_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27038_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27038'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27038_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27038_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27039_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27039'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27039_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27039_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27040_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27040'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27040_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27040_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27041_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27041'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27041_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27041_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27042_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27042'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27042_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27042_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27043_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27043'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27043_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27043_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+#---------- start layer eco----------
+
+ LAYER
+  NAME   "27044_eco"
+  CONNECTION   "user=dbuser dbname=dbname host=dbhost password=dbpsw port=5432"
+  CONNECTIONTYPE  postgis
+  TYPE  POLYGON
+  STATUS OFF
+  DATA   "geom from limtraf_ecologica USING UNIQUE codistat"
+  CLASSITEM   "codistat"
+  
+  
+  CLASS
+   EXPRESSION '27044'   
+   STYLE
+    OUTLINECOLOR  "#000000"
+	COLOR "#000000"
+	MINSIZE 15
+	MAXSIZE 15
+    SYMBOL  "fill_cross_45"
+   END      
+  END
+  
+    
+  PROJECTION
+         "proj=tmerc" "lat_0=0" "lon_0=9" "k=0.9996" "x_0=1500000" "y_0=0" "ellps=intl" "towgs84=-104.1,-49.1,-9.9,0.971,-2.917,0.714,-11.68" "units=m" "no_defs"
+  END    
+
+  METADATA
+   WMS_ENABLE_REQUEST "*"
+   ORNAME   "27044_eco"
+   WMS_SRS  "epsg:3003"
+   WMS_TITLE  "27044_eco"
+   WMS_FEATURE_INFO_MIME_TYPE  "text/html"
+  END    
+  PROCESSING "CLOSE_CONNECTION=DEFER"
+ END  
+
+#------------------ end layer eco----------
+
+
+ 
+END

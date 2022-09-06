@@ -1,0 +1,248 @@
+
+SYMBOLSET
+
+#######################
+SYMBOL
+  NAME "punto_cod_02"
+  TYPE truetype
+  FILLED TRUE
+  ANTIALIAS TRUE
+  FONT "punti"
+  CHARACTER "&#35;"
+END
+
+#######################
+SYMBOL
+  NAME "punto_cod_04"
+  TYPE truetype
+  FILLED TRUE
+  ANTIALIAS TRUE
+  FONT "punti"
+  CHARACTER "&#37;"
+END
+
+#######################
+SYMBOL
+  NAME "punto_cod_07"
+  TYPE truetype
+  FILLED TRUE
+  ANTIALIAS TRUE
+  FONT "punti"
+  CHARACTER "&#41;"
+END
+
+#######################
+SYMBOL
+  NAME "punto_cod_13"
+  TYPE truetype
+  FILLED TRUE
+  ANTIALIAS TRUE
+  FONT "punti"
+  CHARACTER "&#48;"
+END
+
+#######################
+SYMBOL
+  NAME "punto_cod_17"
+  TYPE truetype
+  FILLED TRUE
+  ANTIALIAS TRUE
+  FONT "punti"
+  CHARACTER "&#52;"
+END
+
+#######################
+SYMBOL
+  NAME "punto_cod_18"
+  TYPE truetype
+  FILLED TRUE
+  ANTIALIAS TRUE
+  FONT "punti"
+  CHARACTER "&#53;"
+END
+
+#######################
+SYMBOL
+  NAME "punto_cod_19"
+  TYPE truetype
+  FILLED TRUE
+  ANTIALIAS TRUE
+  FONT "punti"
+  CHARACTER "&#54;"
+END
+
+#######################
+SYMBOL
+  NAME "punto_cod_20"
+  TYPE truetype
+  FILLED TRUE
+  ANTIALIAS TRUE
+  FONT "punti"
+  CHARACTER "&#55;"
+END
+
+#######################
+SYMBOL
+  NAME "punto_cod_26"
+  TYPE truetype
+  FILLED TRUE
+  ANTIALIAS TRUE
+  FONT "punti"
+  CHARACTER "&#61;"
+END
+
+#######################
+SYMBOL
+  NAME "punto_cod_29"
+  TYPE truetype
+  FILLED TRUE
+  ANTIALIAS TRUE
+  FONT "punti"
+  CHARACTER "&#64;"
+END
+
+#######################
+SYMBOL
+  NAME "punto_cod_31"
+  TYPE truetype
+  FILLED TRUE
+  ANTIALIAS TRUE
+  FONT "punti"
+  CHARACTER "&#66;"
+END
+
+#######################
+SYMBOL
+  NAME "punto_cod_34"
+  TYPE truetype
+  FILLED TRUE
+  ANTIALIAS TRUE
+  FONT "punti"
+  CHARACTER "&#69;"
+END
+
+#######################
+SYMBOL
+  NAME "punto_cod_38"
+  TYPE truetype
+  FILLED TRUE
+  ANTIALIAS TRUE
+  FONT "punti"
+  CHARACTER "&#73;"
+END
+
+#######################
+SYMBOL
+  NAME "punto_cod_39"
+  TYPE truetype
+  FILLED TRUE
+  ANTIALIAS TRUE
+  FONT "punti"
+  CHARACTER "&#74;"
+END
+
+#######################
+SYMBOL
+  NAME "punto_cod_40"
+  TYPE truetype
+  FILLED TRUE
+  ANTIALIAS TRUE
+  FONT "punti"
+  CHARACTER "&#75;"
+END
+
+#######################
+SYMBOL
+  NAME "linea_continua"
+  TYPE ellipse
+  FILLED TRUE
+  POINTS 1 1 END
+END
+
+#######################
+SYMBOL
+  NAME "fill_cross_45"
+  TYPE vector
+  POINTS 0 0 1 1 -99 -99 0 1 1 0 END
+END
+
+#######################
+SYMBOL
+  NAME "circle"
+  TYPE ellipse
+  FILLED TRUE
+  POINTS 1 1 END
+END
+
+#######################
+SYMBOL
+  NAME "nord"
+  TYPE truetype
+  FILLED TRUE
+  ANTIALIAS TRUE
+  FONT "nord"
+  CHARACTER "&#177;"
+END
+
+#######################
+SYMBOL
+  NAME "lr11"
+  TYPE truetype
+  FILLED TRUE
+  ANTIALIAS TRUE
+  FONT "esri_nima_pt"
+  CHARACTER "&#253;"
+END
+
+#######################
+SYMBOL
+  NAME "punto_alberghi"
+  TYPE truetype
+  FONT "points"
+  CHARACTER "&#71;"
+END
+
+#######################
+SYMBOL
+  NAME "cadastral_50"
+  TYPE truetype
+  FONT "cadastral"
+  CHARACTER "&#50;"
+END
+
+#######################
+SYMBOL
+  NAME "dynlayer_hatch_45"
+  TYPE vector
+  POINTS 0 1 1 0 END
+END
+
+#######################
+SYMBOL
+  NAME "dynlayer_quad_1"
+  TYPE truetype
+  ANTIALIAS TRUE
+  FONT "poligoni"
+  CHARACTER "&#48;"
+END
+
+#######################
+SYMBOL
+  NAME "dynlayer_quad_2"
+  TYPE vector
+  POINTS 1 0 1 1 -99 -99 0 1 1 1 END
+END
+#######################
+SYMBOL
+  NAME "fill_cross_45"
+  TYPE vector
+  POINTS 0 0 1 1 -99 -99 0 1 1 0 END
+END
+#######################
+SYMBOL
+  NAME "dynlayer_hatch_315"
+  TYPE vector
+  POINTS 0 0 1 1 END
+END
+
+END

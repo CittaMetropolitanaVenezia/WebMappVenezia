@@ -1,0 +1,9 @@
+// @tag full-page
+// @require /home/aerozep/WebMappVenezia/app.js
+// @require /home/aerozep/WebMappVenezia/packages/local/leaflet/leaflet.js
+// @require /home/aerozep/WebMappVenezia/packages/local/Leaflet.markercluster-1.4.1/dist/leaflet.markercluster.js
+// @require /home/aerozep/WebMappVenezia/packages/local/leafletplugins/L.Control.Locate.min.js
+// @require /home/aerozep/WebMappVenezia/packages/local/wellknown.js
+// @require /home/aerozep/WebMappVenezia/packages/local/spin.js
+// @require /home/aerozep/WebMappVenezia/packages/local/leafletplugins/L.SingleTileWMSLayer.js
+// @require /home/aerozep/WebMappVenezia/packages/local/Leaflet.Spin-1.1.0/leaflet.spin.js

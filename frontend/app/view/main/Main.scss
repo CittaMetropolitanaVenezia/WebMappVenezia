@@ -1,0 +1,162 @@
+.transparentPanel{
+	opacity: 0.95 !important;
+}
+.x-treecell.x-no-icon.x-leaf .x-icon-el:before {
+    visibility: hidden;
+}
+
+.x-big .x-tab.x-has-text .x-inner-el {
+    padding: 2px 2px;
+}
+
+.x-big .x-button .x-icon-el {
+	height: 30px;
+}
+
+.noSpacing .x-icon-el{
+	display: none;
+}
+
+.x-icon-el:before{
+	display: inline;
+}
+.x-big .x-treecell .x-icon-el {
+   
+}
+
+
+.x-button .x-text-el {
+    min-height: 16px;
+    text-transform: none !important;
+}
+
+.x-pressed{
+	background-color: #c4f2e7 !important;
+}
+.activeLayer{
+	background-color: yellow !important;
+}
+.dataview-basic-address {
+    background-color: white;
+}
+.dataview-basic-address .x-dataview-item {
+    
+    margin-top: 20px;
+    border-bottom: 1px solid #006411;
+}
+
+.dataview-basic-address .address{
+
+    font-size: 14px;
+    font-weight: bold;
+
+    color: #2196F3;
+    clear: left;
+    text-align: left;
+    margin-left: 10px;
+
+}
+
+.dataview-basic-route {
+    background-color: white;
+	margin-top: 10px;
+    margin-left: -8px;
+}
+
+.dataview-basic-route .x-dataview-item {
+    
+    margin-top: 20px;
+    border-bottom: 1px solid #006411;
+}
+
+.dataview-basic-route .route{
+
+    font-size: 14px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #2196F3;
+    clear: left;
+    text-align: left;
+    margin-left: 10px;
+
+}
+.animated-spinning-icon{
+	
+	font-size: 28px !important;
+}
+
+.spotlight-map-overlay {
+  border-radius: 20px;  
+  box-shadow: 0px 0px 4px 10px rgba(0,0,0,0.5) inset, 0px 0px 0px 1000px rgba(0,0,0,0.5);
+  border-radius:7px
+}
+.x-mask{
+margin-top: 70px !important;
+}
+
+.leaflet-popup-content-wrapper {
+    padding: 1px;
+    text-align: left !important;
+     border-radius: 0px !important; 
+}
+
+.popupCustomButton {
+	color: #2196F3 !important;
+	background-color: trasparent !important;
+	border: false !important;
+	box-shadow: false !important;
+}
+ .my-legend .legend-title {
+    text-align: center;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 110%;
+    }
+  .my-legend .legend-scale ul {
+    
+    list-style: none;
+	margin-left: 10%;
+    }
+  .my-legend .legend-scale ul li {
+    display: block;
+    float: left;
+    width: 80px;
+    margin-bottom: 6px;
+    text-align: center;
+    font-size: 100%;
+    list-style: none;
+    }
+  .my-legend ul.legend-labels li span {
+    display: block;
+    float: left;
+    height: 15px;
+    width: 80px;
+    }
+	
+
+  .my-legend2 .legend-scale ul {
+    margin: 0;
+    margin-bottom: 5px;
+    padding: 0;
+    float: left;
+    list-style: none;
+    }
+  .my-legend2 .legend-scale ul li {
+    font-size: 100%;
+    list-style: none;
+    margin-left: 0;
+    line-height: 18px;
+    margin-bottom: 0px;
+	width: 100%;
+    }
+  .my-legend2 ul.legend-labels li span {
+    display: block;
+    float: left;
+    height: 16px;
+    width: 30px;
+    margin-right: 5px;
+    margin-left: 0;
+    border: 1px solid #999;
+    }
