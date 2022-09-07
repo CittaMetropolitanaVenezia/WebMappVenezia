@@ -1,5 +1,5 @@
 # WebMappVenezia
-Applicazione per rappresentare POI, servizi e informazioni geolocalizzate del territorio. L'applicazione è stata sviluppata per la Città metropolitana di Venezia e per gli enti che ne fanno parte, per valorizzare i servizi e le specificità dei territori.
+Applicazione per la rappresentazione di POI, servizi e informazioni geolocalizzate del territorio. L'applicazione è stata sviluppata per la Città metropolitana di Venezia e per gli enti che ne fanno parte, per valorizzare i servizi e le specificità dei territori.
 
 Requisiti:
 - Web Server con servizio di hosting (consigliato Ubuntu e Apache);
@@ -8,6 +8,8 @@ Requisiti:
 - Postgres
 
 Istruzioni di riutilizzo
+
+Il sistema funziona con un sistema di backend (server php Apache) che deve essere pubblicato sul web per rispondere alle chiamate della Applicazione mobile realizzata con software sencha cordova e distribuibile su diuspositivi mobili android e iphone.
 
 1. Scaricare la cartella del progetto quindi spostare la parte di backend all'interno di un web server;
 2. Creare il database utilizzando lo script webmappvenezia.sql
