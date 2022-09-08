@@ -19,3 +19,5 @@ Il sistema funziona con un sistema di backend (server php Apache) che deve esser
 
 
 Per testare l'applicativo tramite browser, lanciare dalla cartella frontend il comando "sencha app watch", quindi raggiungere l'indirizzo della macchina in cui è situato alla porta 1841.
+
+L'app di produzione per il territorio di Città metropolitana di Venezia può essere scaricata da Play Store o App Store ricercando "WebMapp Venezia"
